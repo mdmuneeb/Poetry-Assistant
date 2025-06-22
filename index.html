@@ -38,9 +38,12 @@
 
     <section class="card">
       <h2 style="display: inline-flex; align-items: center; gap: 0.5rem;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw-icon lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Alliteration</h2>
-      <textarea id="alliterationInput" placeholder="Enter a poetic line..."></textarea>
-      <button onclick="checkAlliteration()">Check Alliteration</button>
-      <div class="output" id="alliterationOutput"></div>
+      <!-- <textarea id="alliterationInput" placeholder="Enter a poetic line..."></textarea>
+      <button onclick="suggestWords()">Check Alliteration</button>
+      <div class="output" id="alliterationOutput"></div> -->
+      <input id="alliterationSuggestInput" placeholder="Enter one word..." />
+      <button onclick="suggestWords()">Alliteration </button>
+      <div class="output" id="alliterationSuggestOutput"></div>
     </section>
   </div>
 

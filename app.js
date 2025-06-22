@@ -1,24 +1,25 @@
 const vowels = 'aeiouy';
 let rhymeMap = new Map();
 
-// Dark mode toggle
+// Theme toggle
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("themeToggle");
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
   });
 
-  // Load word list after DOM is ready
+  // Load word list
   fetch('wordlist.txt')
     .then(res => res.text())
     .then(data => {
       const wordList = data.split('\n').map(w => w.trim().toLowerCase()).filter(Boolean);
       buildRhymeMap(wordList);
+      window.wordList = wordList; // make accessible globally
     });
 });
 
-// Build rhyme map
-function buildRhymeMap(words, suffixLength = 3) {
+// === RHYME ===
+function buildRhymeMap(words, suffixLength = 2) {
   words.forEach(word => {
     const reversed = word.split('').reverse().join('');
     const suffix = reversed.substring(0, suffixLength);
@@ -27,19 +28,27 @@ function buildRhymeMap(words, suffixLength = 3) {
   });
 }
 
-// Find rhyming words
 function findRhymes() {
-  const word = document.getElementById('rhymeInput').value.toLowerCase().trim();
+  const input = document.getElementById('rhymeInput').value.toLowerCase().trim();
   const output = document.getElementById('rhymeOutput');
+  const parts = input.split(/\s+/);
+
+  if (parts.length !== 1) {
+    output.innerHTML = `<span style="color: red;"><b>Error:</b> Please enter only one word.</span>`;
+    return;
+  }
+
+  const word = parts[0];
   const reversed = word.split('').reverse().join('');
-  const suffix = reversed.substring(0, 3);
+  const suffix = reversed.substring(0, 2);
   const results = rhymeMap.get(suffix) || [];
+
   output.innerHTML = results.length
     ? `<b>Rhymes for "${word}":</b><ul>${results.filter(w => w !== word).slice(0, 20).map(w => `<li>${w}</li>`).join('')}</ul>`
     : `No rhymes found for "${word}".`;
 }
 
-// Count syllables in a line
+// === METRE ===
 function countSyllables(line) {
   let total = 0;
   const words = line.toLowerCase().split(/\s+/);
@@ -61,7 +70,6 @@ function countSyllables(line) {
   return total;
 }
 
-// Analyze metre
 function analyzeMetre() {
   const line = document.getElementById('metreInput').value;
   const output = document.getElementById('metreOutput');
@@ -69,7 +77,7 @@ function analyzeMetre() {
   output.innerHTML = `Syllable count: <b>${count}</b>`;
 }
 
-// Group by starting letter
+// === ALLITERATION CHECK ===
 function groupAlliteration(line) {
   const map = new Map();
   const words = line.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/);
@@ -81,7 +89,6 @@ function groupAlliteration(line) {
   return map;
 }
 
-// Check alliteration
 function checkAlliteration() {
   const line = document.getElementById('alliterationInput').value;
   const output = document.getElementById('alliterationOutput');
@@ -90,4 +97,26 @@ function checkAlliteration() {
   output.innerHTML = repeated.length
     ? `<b>Alliteration detected:</b><ul>${repeated.map(([ch, w]) => `<li>${ch.toUpperCase()}: ${w.join(', ')}</li>`).join('')}</ul>`
     : `No alliteration detected.`;
+}
+
+// === ALLITERATION SUGGESTION ===
+function suggestAlliterations(wordList, inputWord) {
+  const firstChar = inputWord[0].toLowerCase();
+  return wordList.filter(word => word.startsWith(firstChar) && word !== inputWord).slice(0, 20);
+}
+
+function suggestWords() {
+  const input = document.getElementById("alliterationSuggestInput").value.toLowerCase().trim();
+  const output = document.getElementById("alliterationSuggestOutput");
+
+  if (!input || input.split(/\s+/).length !== 1) {
+    output.innerHTML = `<span style="color: red;">Please enter only one word.</span>`;
+    return;
+  }
+
+  const suggestions = suggestAlliterations(window.wordList || [], input);
+
+  output.innerHTML = suggestions.length
+    ? `<b>Words starting with "${input[0].toUpperCase()}":</b><ul>${suggestions.map(w => `<li>${w}</li>`).join('')}</ul>`
+    : `No suggestions found for "${input}".`;
 }
