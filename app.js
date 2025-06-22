@@ -3,11 +3,6 @@ let rhymeMap = new Map();
 
 // Theme toggle
 document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("themeToggle");
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-  });
-
   // Load word list
   fetch('wordlist.txt')
     .then(res => res.text())
@@ -110,7 +105,7 @@ function suggestWords() {
   const output = document.getElementById("alliterationSuggestOutput");
 
   if (!input || input.split(/\s+/).length !== 1) {
-    output.innerHTML = `<span style="color: red;">Please enter only one word.</span>`;
+    output.innerHTML = `<span style="color: red;"><b>Error:</b> Please enter only one word.</span>`;
     return;
   }
 
