@@ -1,0 +1,150 @@
+:root {
+  --bg-light: #f0f2f5;
+  --bg-dark: #1e1e2f;
+  --card-light: #ffffff;
+  --card-dark: #2d2d3c;
+  --text-light: #2c3e50;
+  --text-dark: #ecf0f1;
+  --button: linear-gradient(to right, #3498db, #2980b9);
+  --hover: linear-gradient(to right, #2980b9, #2471a3);
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-light);
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.card {
+  background: var(--card-light);
+  border-radius: 15px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s, background 0.3s;
+}
+
+body.dark-mode .card {
+  background: var(--card-dark);
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+input,
+textarea {
+  width: 95%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #dcdde1;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  color: #2c3e50;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+  outline: none;
+}
+
+
+button {
+  background: var(--button);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--hover);
+}
+
+.output {
+  margin-top: 1rem;
+  background: #ecf0f1;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+body.dark-mode .output {
+  background: #404060;
+  color: white;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  input,
+  textarea {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+    width: 90%;
+  }
+
+  .card {
+    padding: 1.5rem 1rem;
+  }
+
+  .output {
+    font-size: 0.95rem;
+  }
+}
+
