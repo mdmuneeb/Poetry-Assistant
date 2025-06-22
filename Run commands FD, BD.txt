@@ -1,0 +1,2 @@
+frontend = liver server
+backend = node index.js

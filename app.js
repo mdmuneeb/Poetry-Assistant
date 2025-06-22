@@ -4,13 +4,18 @@ let rhymeMap = new Map();
 // Theme toggle
 document.addEventListener("DOMContentLoaded", () => {
   // Load word list
-  fetch('wordlist.txt')
+  fetch('http://localhost:3000/wordlist')
     .then(res => res.text())
     .then(data => {
-      const wordList = data.split('\n').map(w => w.trim().toLowerCase()).filter(Boolean);
+      const wordList = data
+        .split('\n')
+        .map(w => w.trim().toLowerCase())
+        .filter(Boolean);
+
       buildRhymeMap(wordList);
       window.wordList = wordList; // make accessible globally
-    });
+  });
+
 });
 
 // === RHYME ===
